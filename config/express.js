@@ -19,8 +19,9 @@ module.exports = () => {
     viewTemplateSetting(app);
 
     const indexRoutes = require('../app/routes/index.server.routes');
-
     indexRoutes(app);
+
+    app.use(express.static('./public'));
 
     return app;
 };
