@@ -8,7 +8,9 @@ const compress = require('compression');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mustacheExpress = require('mustache-express');
+const expressSession = require('express-session');
 
+const config = require('./config');
 
 module.exports = () => {
 
@@ -41,6 +43,11 @@ middleWareSetting = function (app) {
 
     app.use(bodyParser.json());
     app.use(methodOverride());
+    app.use(expressSession({
+        saveUninitialized: true,
+        resave: true,
+        secret: config.sessionSecret
+    }));
 };
 
 viewTemplateSetting = (app) => {
