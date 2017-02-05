@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const compress = require('compression');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const mustacheExpress = require('mustache-express');
 
 
 module.exports = () => {
@@ -15,6 +16,7 @@ module.exports = () => {
 
     enviromentSetting(app);
     middleWareSetting(app);
+    viewTemplateSetting(app);
 
     const indexRoutes = require('../app/routes/index.server.routes');
 
@@ -38,4 +40,10 @@ middleWareSetting = function (app) {
 
     app.use(bodyParser.json());
     app.use(methodOverride());
+};
+
+viewTemplateSetting = (app) => {
+    app.engine('mustache', mustacheExpress());
+    app.set('view engine', 'mustache');
+    app.set('views', './app/views');
 };
