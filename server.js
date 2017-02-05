@@ -1,6 +1,10 @@
 /**
  * Created by nsm1211 on 2/5/17.
  */
+
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 const express = require("./config/express");
 
 const app = express();
