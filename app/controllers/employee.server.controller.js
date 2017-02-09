@@ -44,3 +44,13 @@ exports.employeeById = function (req, res, next, id) {
     })
 };
 
+exports.updateEmployee = function (req, res, next) {
+    Employee.findByIdAndUpdate(req.employee.id, req.body, {'new': true}, (err, employee) => {
+        if (err) {
+            next(req);
+        } else {
+            res.status(200).json(employee);
+        }
+    })
+};
+
