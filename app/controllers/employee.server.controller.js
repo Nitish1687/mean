@@ -54,3 +54,13 @@ exports.updateEmployee = function (req, res, next) {
     })
 };
 
+exports.delete = function (req, res, next) {
+    req.employee.remove({safe: true}, (err) => {
+        if (err) {
+            next(err);
+        } else {
+            res.status(200).json(req.employee);
+        }
+    })
+};
+
