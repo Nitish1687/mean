@@ -10,9 +10,6 @@ const methodOverride = require('method-override');
 const mustacheExpress = require('mustache-express');
 const expressSession = require('express-session');
 
-const meanURI = 'mongodb://localhost/mean';
-const meanDb = require('mongoose').connect(meanURI);
-
 const config = require('./config');
 
 module.exports = () => {
@@ -23,8 +20,9 @@ module.exports = () => {
     middleWareSetting(app);
     viewTemplateSetting(app);
 
-    const indexRoutes = require('../app/routes/index.server.routes');
-    indexRoutes(app);
+    require('../app/routes/index.server.routes')(app);
+
+    require('../app/routes/employee.server.routes')(app);
 
     app.use(express.static('./public'));
 

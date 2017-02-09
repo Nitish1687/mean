@@ -5,14 +5,10 @@
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-// MongoDb connection for mean database
-const mongoDb = require('./config/mongoose');
-
-const connection = mongoDb();
-
-// Express server configuration 
+const configureMongoose = require('./config/mongoose');
 const express = require("./config/express");
 
+const db = configureMongoose();
 const app = express();
 
 app.listen(8000);
