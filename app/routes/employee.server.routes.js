@@ -2,9 +2,11 @@
  * Created by nsm1211 on 2/9/17.
  */
 
-const users = require('../controllers/employee.server.controller');
+const employees = require('../controllers/employee.server.controller');
 module.exports = (app) => {
 
-    app.route('/users').post(users.create);
+    app.route('/employees').post(employees.create).get(employees.employeesList);
+    app.route('/employees/:employeeId').get(employees.read);
+    app.param('employeeId', employees.employeeByID);
 
 };

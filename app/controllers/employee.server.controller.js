@@ -15,3 +15,31 @@ exports.create = function (req, res, next) {
         }
     });
 };
+
+exports.employeesList = function (req, res, next) {
+
+    Employee.find({}, (err, employees) => {
+        if (err) {
+            return next(req);
+        } else {
+            res.status(200).json(employees);
+        }
+
+    });
+};
+
+exports.read = function (req, res) {
+    res.json(req.employee);
+};
+
+exports.employeeByID = function (req, res, next, id) {
+
+    Employee.findOne({_id: id}, (err, employee) => {
+        if (err) {
+            next(req);
+        } else {
+            res.status(200).json(employee);
+        }
+    })
+};
+
