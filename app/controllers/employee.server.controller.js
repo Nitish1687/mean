@@ -32,13 +32,14 @@ exports.read = function (req, res) {
     res.json(req.employee);
 };
 
-exports.employeeByID = function (req, res, next, id) {
+exports.employeeById = function (req, res, next, id) {
 
     Employee.findOne({_id: id}, (err, employee) => {
         if (err) {
             next(req);
         } else {
-            res.status(200).json(employee);
+            req.employee = employee;
+            next();
         }
     })
 };

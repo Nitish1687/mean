@@ -7,6 +7,6 @@ module.exports = (app) => {
 
     app.route('/employees').post(employees.create).get(employees.employeesList);
     app.route('/employees/:employeeId').get(employees.read);
-    app.param('employeeId', employees.employeeByID);
+    app.param('employeeId', employees.employeeById);
 
 };
