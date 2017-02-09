@@ -10,6 +10,9 @@ const methodOverride = require('method-override');
 const mustacheExpress = require('mustache-express');
 const expressSession = require('express-session');
 
+const meanURI = 'mongodb://localhost/mean';
+const meanDb = require('mongoose').connect(meanURI);
+
 const config = require('./config');
 
 module.exports = () => {

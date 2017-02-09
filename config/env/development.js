@@ -3,5 +3,6 @@
  */
 
 module.exports = {
-    sessionSecret: 'developmentSessionSecret'
+    sessionSecret: 'developmentSessionSecret',
+    meanDb: 'mongodb://localhost/mean'
 };
