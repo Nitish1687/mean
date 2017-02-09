@@ -1,0 +1,8 @@
+---
+applications:
+- name: mean
+  command:
+      node server.js
+  service: mongo
+  env:
+     NODE_ENV: production

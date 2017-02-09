@@ -10,7 +10,15 @@ const EmployeeSchema = new Schema({
     lastName: String,
     emailId: String,
     userName: String,
-    password: String
+    password: String,
+    userName: {
+        type: String,
+        trim: true
+    },
+    created: {
+        type: Date,
+        default: Date.now()
+    }
 });
 
 
