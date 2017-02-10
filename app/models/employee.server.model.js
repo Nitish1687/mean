@@ -8,12 +8,16 @@ const Schema = mongoose.Schema;
 const EmployeeSchema = new Schema({
     firstName: String,
     lastName: String,
-    emailId: String,
+    emailId: {
+        type: String,
+        unique: true
+    },
     userName: String,
     password: String,
     userName: {
         type: String,
         trim: true,
+        required: true,
         unique: true
     },
     created: {
