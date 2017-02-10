@@ -13,7 +13,15 @@ const EmployeeSchema = new Schema({
         unique: true
     },
     userName: String,
-    password: String,
+    password: {
+        type: String,
+        validate: [
+            function (password) {
+                return password.length >= 2
+            },
+            'password should be greater then 2 char'
+        ]
+    },
     userName: {
         type: String,
         trim: true,
