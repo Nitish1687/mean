@@ -13,7 +13,8 @@ const EmployeeSchema = new Schema({
     password: String,
     userName: {
         type: String,
-        trim: true
+        trim: true,
+        unique: true
     },
     created: {
         type: Date,
