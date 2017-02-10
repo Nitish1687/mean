@@ -46,6 +46,10 @@ const EmployeeSchema = new Schema({
             }
             return url
         }
+    },
+    role: {
+        type: String,
+        enum: ['Admin', 'Owner', 'User']
     }
 });
 
