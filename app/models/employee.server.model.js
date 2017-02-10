@@ -65,6 +65,17 @@ EmployeeSchema.virtual('fullName').get(function () {
     return this.firstName + ' ' + this.lastName
 });
 
+EmployeeSchema.pre('save', function (next) {
+    if (false) {
+    } else {
+        console.log('before save employee');
+    }
+});
+
+EmployeeSchema.post('save', function (next) {
+    console.log('employee with ' + this.firstName + " got saved");
+});
+
 EmployeeSchema.set('toJSON', {getters: true, virtuals: true});
 
 
