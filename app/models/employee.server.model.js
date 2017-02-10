@@ -18,8 +18,37 @@ const EmployeeSchema = new Schema({
     created: {
         type: Date,
         default: Date.now()
+    },
+    website: {
+        type: String,
+        set: (url) => {
+            if (!url) {
+                return url
+            } else {
+                if (url.indexOf('https') !== 0 && url.indexOf('http') !== 0) {
+                    url = 'http"//' + url
+                }
+            }
+            return url
+        },
+        get: (url) => {
+            if (!url) {
+                return url
+            } else {
+                if (url.indexOf('https') !== 0 && url.indexOf('http') !== 0) {
+                    url = 'http://' + url
+                }
+            }
+            return url
+        }
     }
 });
+
+EmployeeSchema.virtual('fullName').get(function () {
+    return this.firstName + ' ' + this.lastName
+});
+
+EmployeeSchema.set('toJSON', {getters: true, virtuals: true});
 
 
 mongoose.model('Employee', EmployeeSchema);
