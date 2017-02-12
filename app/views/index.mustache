@@ -1,39 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 50%;
-        }
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
     <title>{{title}}</title>
 </head>
 <body>
-       <h1>{{description}}</h1><br/>
-       <ul>
-           <table style="width:100%">
-               <tr>
-                   <th>Name</th>
-                   <th>Age</th>
-               </tr>
+    {{#userFullName}}
+        {{.}}
+        <a href="/signout">Sign Out</a>
+    {{/userFullName}}
 
-               {{#employees}}
-               <tr><td>{{name}}</td><td>{{age}}</td></tr>
-               {{/employees}}
-
-           </table>
-       </ul>
-       <img src="img/image-placeholder.png"/>
+    {{^userFullName}}
+        <a href="/signin">Sign In</a>
+        <a href="/signup">Sign Up</a>
+    {{/userFullName}}
+    <br/>
+    <br/>
+<img src="img/image-placeholder.png"/>
 </body>
 </html>

@@ -58,7 +58,16 @@ const EmployeeSchema = new Schema({
     role: {
         type: String,
         enum: ['Admin', 'Owner', 'User']
-    }
+    },
+    salt: {
+        type: String
+    },
+    provider: {
+        type: String,
+        require: 'Provider is required'
+    },
+    providerId: String,
+    providerData: {}
 });
 
 EmployeeSchema.virtual('fullName').get(function () {
@@ -66,11 +75,36 @@ EmployeeSchema.virtual('fullName').get(function () {
 });
 
 EmployeeSchema.pre('save', function (next) {
-    if (false) {
-    } else {
-        console.log('before save employee');
+    if (this.password) {
+        this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
+        this.password = this.hashPassword(this.password)
     }
+    next()
 });
+
+EmployeeSchema.methods.hashPassword = function (password) {
+    return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64')
+};
+
+EmployeeSchema.methods.authenticate = function (password) {
+    return this.password = this.hashPassword(password)
+};
+
+EmployeeSchema.static.findUniqueUsername = function (username, suffix, callback) {
+    const possibleUsername = username + (suffix || '');
+
+    this.findOne({username: possibleUsername}, (err, employee) => {
+        if (!err) {
+            if (!employee) {
+                callback(possibleUsername)
+            } else {
+                this.findUniqueUsername(username, (suffix || 0) + 1, callback)
+            }
+        } else {
+            callback
+        }
+    })
+};
 
 EmployeeSchema.post('save', function (next) {
     console.log('employee with ' + this.firstName + " got saved");

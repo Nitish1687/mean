@@ -5,13 +5,13 @@
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-const configurePassport = require('./config/passport');
 const configureMongoose = require('./config/mongoose');
 const express = require("./config/express");
+const configurePassport = require('./config/passport');
 
-const passport = configurePassport();
 const db = configureMongoose();
 const app = express();
+const passport = configurePassport();
 
 app.listen(8000);
 

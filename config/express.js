@@ -8,7 +8,9 @@ const compress = require('compression');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mustacheExpress = require('mustache-express');
-const expressSession = require('express-session');
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
 
 const config = require('./config');
 
@@ -44,11 +46,14 @@ middleWareSetting = function (app) {
 
     app.use(bodyParser.json());
     app.use(methodOverride());
-    app.use(expressSession({
+    app.use(session({
+        secret: config.sessionSecret,
         saveUninitialized: true,
-        resave: true,
-        secret: config.sessionSecret
+        resave: true
     }));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(flash());
 };
 
 viewTemplateSetting = (app) => {
