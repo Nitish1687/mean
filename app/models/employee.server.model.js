@@ -4,6 +4,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const crypto = require('crypto');
 
 const EmployeeSchema = new Schema({
     firstName: String,
@@ -12,7 +13,12 @@ const EmployeeSchema = new Schema({
         type: String,
         unique: true
     },
-    userName: String,
+    userName: {
+        type: String,
+        trim: true,
+        required: true,
+        unique: true
+    },
     password: {
         type: String,
         validate: [
@@ -21,12 +27,6 @@ const EmployeeSchema = new Schema({
             },
             'password should be greater then 2 char'
         ]
-    },
-    userName: {
-        type: String,
-        trim: true,
-        required: true,
-        unique: true
     },
     created: {
         type: Date,
@@ -55,10 +55,10 @@ const EmployeeSchema = new Schema({
             return url
         }
     },
-    role: {
-        type: String,
-        enum: ['Admin', 'Owner', 'User']
-    },
+    // role: {
+    //     type: String,
+    //     enum: ['Admin', 'Owner', 'User']
+    // },
     salt: {
         type: String
     },
